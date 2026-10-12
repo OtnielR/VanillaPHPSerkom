@@ -3,6 +3,7 @@
 require_once(__DIR__ . "/../core/database.php");
 require_once(__DIR__ . "/../models/Food.php");
 require_once(__DIR__ . "/../models/Order.php");
+require_once(__DIR__ . "/../models/OrderDetail.php");
 require_once(__DIR__ . "/../core/config.php");
 require_once(__DIR__ . "/../core/Controller.php");
 require_once(__DIR__ . "/../core/Auth.php");
@@ -14,12 +15,14 @@ class FoodController extends Controller
     private Database $db;
     private Food $foodModel;
     private Order $orderModel;
+    private OrderDetail $orderDetailModel;
 
     public function __construct()
     {
         $this->db = new Database();
         $this->foodModel = new Food($this->db);
         $this->orderModel = new Order($this->db);
+        $this->orderDetailModel = new OrderDetail($this->db);
     }
 
     public function index(): void
@@ -77,9 +80,14 @@ class FoodController extends Controller
                 $tableNumber = trim($_POST["table_number"]);
                 $totalPrice = trim($_POST["total_price"]);
 
-                $this->orderModel->create($name, $tableNumber, $totalPrice);
-            }
+                $orderId = $this->orderModel->create($name, $tableNumber, $totalPrice);
 
+                if ($orderId) {
+                    foreach ($_SESSION["cart"] as $key => $value) {
+                        $this->orderDetailModel->create($orderId, $key, $value["quantity"], $value["quantity"] * $value["price"]);
+                    }
+                }
+            }
             unset($_SESSION["cart"]);
         }
 
@@ -125,7 +133,6 @@ class FoodController extends Controller
 
         if ($food_id) {
             $food = $this->foodModel->getFoodById($food_id);
-            print_r($food);
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

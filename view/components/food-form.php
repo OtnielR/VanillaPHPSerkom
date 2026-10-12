@@ -26,9 +26,16 @@
         <label for="category">Category: </label>
         <br>
         <select type="text" name="category" required>
-            <option value="makanan" <?= $food["category"] == "makanan" ? 'selected' : '' ?>>Makanan</option>
-            <option value="minuman" <?= $food["category"] == "minuman" ? 'selected' : '' ?>>Minuman</option>
-            <option value="cemilan" <?= $food["category"] == "cemilan" ? 'selected' : '' ?>>Cemilan</option>
+            <?php if ($food): ?>
+                <option value="makanan" <?= $food["category"] == "makanan" ? 'selected' : '' ?>>Makanan</option>
+                <option value="minuman" <?= $food["category"] == "minuman" ? 'selected' : '' ?>>Minuman</option>
+                <option value="cemilan" <?= $food["category"] == "cemilan" ? 'selected' : '' ?>>Cemilan</option>
+            <?php else: ?>
+                <option value="makanan">Makanan</option>
+                <option value="minuman">Minuman</option>
+                <option value="cemilan">Cemilan</option>
+
+            <?php endif; ?>
         </select>
     </div>
     <div>

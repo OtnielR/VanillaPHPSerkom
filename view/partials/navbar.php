@@ -6,6 +6,7 @@ $scriptName = explode('/', $_SERVER['SCRIPT_NAME'])[array_key_last(explode('/', 
 $isOnIndex =  $scriptName == "index.php";
 $isOnDashboardIndex =  $scriptName == "home.php";
 $isOnUserList = $scriptName == "user-list.php";
+$isOnOrderList = $scriptName == "order-list.php";
 $isOnUserForm = $scriptName == "user-form.php";
 $isOnFoodList = $scriptName == "food-list.php";
 $isOnFoodForm = $scriptName == "food-form.php";
@@ -45,6 +46,9 @@ $isOnFoodForm = $scriptName == "food-form.php";
             </a>
             <a href="<?= __BASEURL__ ?>/view/dashboard/food-form.php" class="<?= $isOnFoodForm ? 'active' : '' ?>">
                 Food Form
+            </a>
+            <a href="<?= __BASEURL__ ?>/view/dashboard/order-list.php" class="<?= $isOnOrderList ? 'active' : '' ?>">
+                Order List
             </a>
         </div>
         <div>

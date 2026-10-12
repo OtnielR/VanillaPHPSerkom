@@ -10,7 +10,7 @@ class Order
         $this->db = $db;
     }
 
-    public function create(string $customerName, string $tableNumber, int $totalPrice): bool
+    public function create(string $customerName, string $tableNumber, int $totalPrice): bool|int
     {
         $sql = "INSERT INTO orders (customer_name, table_number, total_price, status) VALUE ('$customerName', '$tableNumber', $totalPrice, 'pending')";
         $isQuerySuccess = $this->db->conn->query($sql);
@@ -18,7 +18,8 @@ class Order
         print_r($isQuerySuccess);
 
         if ($isQuerySuccess) {
-            return true;
+            $orderId = $this->db->conn->insert_id;
+            return $orderId;
         }
 
         return false;
@@ -61,6 +62,19 @@ class Order
     public function getAllCompleteOrders(): mysqli_result|bool
     {
         $sql = "SELECT * FROM orders WHERE status='selesai'";
+        $result = $this->db->conn->query($sql);
+
+        if (!$result) {
+            return false;
+        }
+
+        return $result;
+    }
+
+    public function update(int $orderId, string $status)
+    {
+        $sql = "UPDATE orders SET status='{$status}' WHERE id={$orderId}";
+
         $result = $this->db->conn->query($sql);
 
         if (!$result) {
