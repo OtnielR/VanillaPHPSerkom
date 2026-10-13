@@ -192,6 +192,10 @@ class FoodController extends Controller
 
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             if (isset($_GET["food_id"])) {
+                $food = $this->foodModel->getFoodById($_GET["food_id"]);
+
+                unlink(__BASEPATH__ . $food["image"]);
+
                 $this->foodModel->delete($_GET["food_id"]);
             }
 
