@@ -22,14 +22,19 @@ Aplikasi dikonfigurasi untuk secara otomatis memeriksa dan membuat tabel basis d
 Perbarui kredensial basis data Anda di `app/core/config.php`
 
 ```php
+-- Change this based on your own credentials
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'food_db');
 
+-- Change this if you want different default admin account
 define("DEFAULT_ADMIN_USERNAME", "admin");
 define("DEFAULT_ADMIN_GMAIL", "admin@gmail.com");
 define("DEFAULT_ADMIN_PASSWORD", "admin");
+
+-- Change this based on your folder name
+define("__BASEURL__", "/LearnPHP/auth");
 
 ```
 
