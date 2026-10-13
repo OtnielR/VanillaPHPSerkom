@@ -15,8 +15,6 @@ class Order
         $sql = "INSERT INTO orders (customer_name, table_number, total_price, status) VALUE ('$customerName', '$tableNumber', $totalPrice, 'pending')";
         $isQuerySuccess = $this->db->conn->query($sql);
 
-        print_r($isQuerySuccess);
-
         if ($isQuerySuccess) {
             $orderId = $this->db->conn->insert_id;
             return $orderId;
@@ -27,7 +25,7 @@ class Order
 
     public function getAllOrders(): mysqli_result|bool
     {
-        $sql = "SELECT * FROM orders";
+        $sql = "SELECT * FROM orders ORDER BY timestamps DESC";
         $result = $this->db->conn->query($sql);
 
         if (!$result) {
@@ -38,7 +36,7 @@ class Order
     }
     public function getAllPendingOrders(): mysqli_result|bool
     {
-        $sql = "SELECT * FROM orders WHERE status='pending'";
+        $sql = "SELECT * FROM orders WHERE status='pending' ORDER BY timestamps DESC";
         $result = $this->db->conn->query($sql);
 
         if (!$result) {
@@ -49,7 +47,7 @@ class Order
     }
     public function getAllOngoingOrders(): mysqli_result|bool
     {
-        $sql = "SELECT * FROM orders WHERE status='diproses'";
+        $sql = "SELECT * FROM orders WHERE status='diproses' ORDER BY timestamps DESC";
         $result = $this->db->conn->query($sql);
 
         if (!$result) {
@@ -61,7 +59,7 @@ class Order
 
     public function getAllCompleteOrders(): mysqli_result|bool
     {
-        $sql = "SELECT * FROM orders WHERE status='selesai'";
+        $sql = "SELECT * FROM orders WHERE status='selesai' ORDER BY timestamps DESC";
         $result = $this->db->conn->query($sql);
 
         if (!$result) {

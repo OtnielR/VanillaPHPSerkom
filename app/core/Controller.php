@@ -9,10 +9,6 @@ class Controller
         require_once(__BASEPATH__ . "/view/partials/header.php");
         require_once(__BASEPATH__ . "/view/partials/navbar.php");
 
-        if (!$viewPath) {
-            require_once(__BASEPATH__ . "/view/partials/footer.php");
-            return;
-        }
         $file = __BASEPATH__ . "/view/" . $viewPath . ".php";
 
         if (file_exists($file)) {

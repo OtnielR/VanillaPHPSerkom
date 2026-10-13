@@ -4,38 +4,12 @@ Aplikasi web MVC kustom modular yang dibangun menggunakan **Vanilla PHP**, **MyS
 
 ---
 
-## 📁 Struktur Proyek
-
-```text
-.
-├── app/
-│   ├── controllers/      # Menangani logika permintaan (Dashboard, Food, Order, User)
-│   ├── core/             # Inti kerangka kerja (Auth, Config, Controller, Database)
-│   ├── models/           # Model data (Food, Order, User)
-│   └── utils/            # Utilitas pembantu (ComponentUtils, ElementUtils, FileUtils)
-├── public/               # Aset web / direktori unggahan yang dapat diakses publik
-├── view/                 # Komponen dan halaman tampilan
-│   ├── assets/           # Berkas gaya (stylesheet) aplikasi
-│   ├── components/       # Komponen UI yang dapat digunakan kembali (Form, Tabel, Kartu, Filter)
-│   ├── dashboard/        # Halaman fitur dasbor
-│   ├── partials/         # Bagian tata letak inti (Header, Navbar, Footer)
-│   ├── login.php         # Halaman masuk autentikasi
-│   └── logout.php        # Penangan keluar sesi (logout)
-├── index.php             # Titik masuk utama aplikasi / Router
-└── README.md
-
-```
-
----
-
 ## 🛠️ Prasyarat
 
 * **Laragon** (sangat direkomendasikan) atau stack WAMP/XAMPP apa pun yang menjalankan:
 * **Apache**
 * **PHP 8.x** (atau PHP 7.4+)
 * **MySQL / MariaDB**
-
-
 
 ---
 
@@ -45,13 +19,17 @@ Aplikasi dikonfigurasi untuk secara otomatis memeriksa dan membuat tabel basis d
 
 ### Konfigurasi Basis Data
 
-Perbarui kredensial basis data Anda di `app/core/config.php` atau `app/core/database.php`:
+Perbarui kredensial basis data Anda di `app/core/config.php`
 
 ```php
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'food_db');
+
+define("DEFAULT_ADMIN_USERNAME", "admin");
+define("DEFAULT_ADMIN_GMAIL", "admin@gmail.com");
+define("DEFAULT_ADMIN_PASSWORD", "admin");
 
 ```
 
@@ -117,7 +95,6 @@ C:\laragon\www\nama-proyek-anda
 
 ```
 
-
 3. Nyalakan **Apache** dan **MySQL** dari Panel Kontrol Laragon.
 
 ### 2. Memulai Aplikasi
@@ -137,6 +114,7 @@ C:\laragon\www\nama-proyek-anda
 ### 1. Autentikasi
 
 * Kunjungi halaman masuk (`/view/login.php` atau rute utama) untuk masuk.
+* Lalu login menggunakan data default yang sudah di siap kan dalam file `config.php`
 * Akhiri sesi dengan aman menggunakan `logout.php`.
 
 ### 2. Manajemen Dasbor
@@ -153,7 +131,6 @@ Akses berbagai fitur melalui rute dasbor:
 
 * **Pemrosesan Pesanan**:
 * Membuat dan memperbarui detail pesanan pelanggan melalui formulir pesanan komponen.
-
 
 
 ### 3. Utilitas Pembantu & Komponen UI

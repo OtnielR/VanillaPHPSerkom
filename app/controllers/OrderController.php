@@ -64,10 +64,10 @@ class OrderController extends Controller
                 $orderDetails = null;
             }
 
-            array_push($completeOrders, ["id" => $order["id"], "customer_name" => $order["customer_name"], "table_number" => $order["table_number"], "total_price" => $order["total_price"], "status" => $order["status"], "orderDetails" => $orderDetails]);
+            array_push($completeOrders, ["id" => $order["id"], "customer_name" => $order["customer_name"], "table_number" => $order["table_number"], "total_price" => $order["total_price"], "timestamps" => $order["timestamps"], "status" => $order["status"], "orderDetails" => $orderDetails]);
         }
 
-        $this->view("components/header", ["title" => "Orders", "subtitle" => "This was all the orders that available right now "]);
+        $this->view("components/header", ["title" => "Orders", "subtitle" => "This was all the orders that available right now sorted by the newest order"]);
         $this->view("components/filter/filter-by-category", ["title" => "Filter Orders by Status", "categories" => ["pending", "diproses", "selesai"], "currentCategory" => $category]);
         $this->view("components/order-table", ["orders" => $completeOrders, "category" => $category, "error" => $error]);
     }

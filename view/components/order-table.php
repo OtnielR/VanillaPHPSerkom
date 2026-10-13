@@ -2,7 +2,6 @@
 
 /** @var array $orders */
 /** @var mysqli_result|null $category */
-
 ?>
 
 <div class="table-container">
@@ -16,6 +15,7 @@
                     <td>Total Price</td>
                     <td>Order Details</td>
                     <td>Status</td>
+                    <td>Timestamps</td>
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +66,9 @@
                                     </option>
                                 </select>
                             </form>
+                        </td>
+                        <td>
+                            <?= $order["timestamps"] ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

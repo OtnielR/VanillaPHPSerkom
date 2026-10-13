@@ -542,3 +542,23 @@ grid {
 .order-input {
     width: 100%;
 }
+
+.message-container {
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message {
+    background-color: lightgreen;
+    width: 40%;
+    height: 3.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+    border: 5px solid green;
+}

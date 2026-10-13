@@ -23,7 +23,6 @@
                     <?= strtoupper(substr($category, 0, 1)) . substr($category, 1) ?>
                 </a>
             </div>
-
         <?php endforeach; ?>
 
     </div>

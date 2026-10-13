@@ -27,52 +27,12 @@ class FoodController extends Controller
 
     public function index(): void
     {
-
         $foods = null;
         $foodOrders = null;
         $category = null;
+        $message = null;
 
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            if (!isset($_SESSION["cart"])) {
-                $_SESSION["cart"] = [];
-            }
-
-            if (!isset($_GET["action"]) && !isset($_GET["food_id"])) {
-                $error = "Request Failed";
-            } else if ($_GET["action"] === "add") {
-                $foodId = $_GET["food_id"];
-
-                if (isset($_SESSION["cart"][$foodId])) {
-                    $_SESSION["cart"][$foodId]["quantity"]++;
-                } else {
-                    $_SESSION["cart"][$foodId]["quantity"] = 1;
-                    $_SESSION["cart"][$foodId]["name"] = $_GET["food_name"];
-                    $_SESSION["cart"][$foodId]["price"] = $_GET["food_price"];
-                    $_SESSION["cart"][$foodId]["image_url"] = $_GET["food_image_url"];
-                }
-
-                header("Location: " . __BASEURL__);
-            } else if ($_GET["action"] == "decrease") {
-                $foodId = $_GET["food_id"];
-
-                if (isset($_SESSION["cart"][$foodId])) {
-                    if ($_SESSION["cart"][$foodId]["quantity"] <= 1) {
-                        unset($_SESSION["cart"][$foodId]);
-                    } else {
-                        $_SESSION["cart"][$foodId]["quantity"]--;
-                    }
-                }
-
-                header("Location: " . __BASEURL__);
-            } else if ($_GET["action"] == "remove") {
-
-                $foodId = $_GET["food_id"];
-
-                unset($_SESSION["cart"][$foodId]);
-
-                header("Location: " . __BASEURL__);
-            }
-        }
+        $this->handleCart();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_SESSION["cart"])) {
@@ -87,6 +47,8 @@ class FoodController extends Controller
                         $this->orderDetailModel->create($orderId, $key, $value["quantity"], $value["quantity"] * $value["price"]);
                     }
                 }
+
+                $message = "Order for <b>{$name}</b> with table number <b>{$tableNumber}</b> has been created";
             }
             unset($_SESSION["cart"]);
         }
@@ -102,6 +64,7 @@ class FoodController extends Controller
             $foodOrders = $_SESSION["cart"];
         }
 
+        $this->view("components/message", ["message" => $message]);
         $this->view("components/header", ["title" => "Foods", "subtitle" => "This are all foods that available in our restaurant"]);
         $this->view("components/filter/filter-by-category", ["title" => "Filter Foods by Category", "categories" => ["makanan", "minuman", "cemilan"], "currentCategory" => $category]);
 
@@ -119,6 +82,51 @@ class FoodController extends Controller
 
         if (!is_null($foodOrders)) {
             $this->view("components/order-form", ["foodOrders" => $foodOrders]);
+        }
+    }
+
+    private function handleCart(): void
+    {
+
+        if (!isset($_SESSION["cart"])) {
+            $_SESSION["cart"] = [];
+        }
+
+        if (!isset($_GET["action"]) && !isset($_GET["food_id"])) {
+            $error = "Request Failed";
+            return;
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $action = $_GET["action"];
+            $foodId = $_GET["food_id"];
+
+            switch ($action) {
+                case "add":
+                    if (isset($_SESSION["cart"][$foodId])) {
+                        $_SESSION["cart"][$foodId]["quantity"]++;
+                    } else {
+                        $_SESSION["cart"][$foodId]["quantity"] = 1;
+                        $_SESSION["cart"][$foodId]["price"] = $_GET["food_price"];
+                        $_SESSION["cart"][$foodId]["name"] = $_GET["food_name"];
+                        $_SESSION["cart"][$foodId]["image_url"] = $_GET["food_image_url"];
+                    }
+                    break;
+                case "decrease":
+                    if (isset($_SESSION["cart"][$foodId]) && $_SESSION["cart"][$foodId]["quantity"] <= 1) {
+                        unset($_SESSION["cart"][$foodId]);
+                    } else {
+                        $_SESSION["cart"][$foodId]["quantity"]--;
+                    }
+                    break;
+                case "remove";
+                    if (isset($_SESSION["cart"][$foodId])) {
+                        unset($_SESSION["cart"][$foodId]);
+                    }
+                    break;
+            }
+
+            header("Location: " . __BASEURL__);
         }
     }
 

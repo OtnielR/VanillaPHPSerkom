@@ -13,7 +13,6 @@ class FileUtils
             $fileTmpPath = $_FILES[$file]["tmp_name"];
             $fileName = $_FILES[$file]["name"];
             $fileSize = $_FILES[$file]["size"];
-            $fileType = $_FILES[$file]["type"];
 
             $fileExtension = strtolower(explode(".", $fileName)[1]);
             $allowedExtensions = ["jpeg", "jpg", "png", "webp"];
@@ -38,11 +37,7 @@ class FileUtils
 
             $destination = $uploadDirectory . $newFileName;
 
-            if (move_uploaded_file($fileTmpPath, $destination)) {
-
-                $relativePath = "uploads/" . $newFileName;
-            }
-
+            move_uploaded_file($fileTmpPath, $destination);
 
             return ["status" => true, "message" => "File uploaded successfully", "path" => $fileRelativePath];
         }

@@ -38,7 +38,9 @@
                             <?= strtoupper(substr($row["category"], 0, 1)) . substr($row["category"], 1) ?>
                         </td>
                         <td>
-                            <?= "Rp. " . $row["price"] ?>
+                            <p>
+                                <?= "Rp. " . $row["price"] ?>
+                            </p>
                         </td>
 
                         <td>

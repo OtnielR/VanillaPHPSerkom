@@ -34,7 +34,7 @@ class UserController extends Controller
             } else {
                 $user = $this->model->findUserByEmail($email);
 
-                if (password_verify($password, $user["password"])) {
+                if ($user && password_verify($password, $user["password"])) {
                     Auth::login($user);
                     header("Location: " . __BASEURL__ . "/view/dashboard/home.php");
                     exit;
