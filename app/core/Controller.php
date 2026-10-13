@@ -5,9 +5,7 @@ class Controller
     protected function view(string $viewPath, array $data): void
     {
         extract($data);
-        // echo var_dump(get_defined_vars());
 
-        // require_once only run once event when the function called multiple time
         require_once(__BASEPATH__ . "/view/partials/header.php");
         require_once(__BASEPATH__ . "/view/partials/navbar.php");
 

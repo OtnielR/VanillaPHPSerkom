@@ -47,7 +47,7 @@ class Food
 
 
 
-    public function create(string $name, string $category, int $price, string $description, string $imageUrl): bool
+    public function create(string $name, string $category, int $price, string|null $description, string|null $imageUrl): bool
     {
         $sql = "INSERT INTO foods (name, category, price, description, image) VALUES ('{$name}', '{$category}', {$price}, '{$description}', '{$imageUrl}')";
 

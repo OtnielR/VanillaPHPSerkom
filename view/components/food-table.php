@@ -47,13 +47,15 @@
                         <td class="img">
                             <img src="<?= __BASEURL__ . $row['image'] ?>" alt="">
                         </td>
-                        <td class="table-action">
-                            <a class="table-action-delete"
-                                href="<?= __BASEURL__ . '/view/dashboard/food-delete.php?food_id=' . $row['id'] ?>">Delete
-                            </a>
-                            <a class="table-action-update"
-                                href="<?= __BASEURL__ . '/view/dashboard/food-form.php?food_id=' . $row['id'] ?>&method=update">Update
-                            </a>
+                        <td>
+                            <div class="table-action">
+                                <a class="table-action-delete"
+                                    href="<?= __BASEURL__ . '/view/dashboard/food-delete.php?food_id=' . $row['id'] ?>">Delete
+                                </a>
+                                <a class="table-action-update"
+                                    href="<?= __BASEURL__ . '/view/dashboard/food-form.php?food_id=' . $row['id'] ?>&method=update">Update
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 <?php endwhile; ?>

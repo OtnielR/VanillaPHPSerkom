@@ -46,14 +46,14 @@
     <div>
         <label for="description">Description: </label>
         <br>
-        <textarea rows="4" name="description" required>
+        <textarea rows="4" name="description">
             <?= $food ? htmlspecialchars($food['description']) : '' ?>
         </textarea>
     </div>
     <div>
         <label for="image">Image: </label>
         <br>
-        <input type="file" name="image" accept="image/*" required>
+        <input type="file" name="image" accept="image/*">
     </div>
 
     <div>

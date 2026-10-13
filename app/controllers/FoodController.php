@@ -149,7 +149,11 @@ class FoodController extends Controller
             }
 
             if ($method == "update") {
-                $status = $this->foodModel->update($name, $category, $price, $description, $image, $food_id);
+                if ($image == null) {
+                    $status = $this->foodModel->update($name, $category, $price, $description, $food["image"], $food_id);
+                } else {
+                    $status = $this->foodModel->update($name, $category, $price, $description, $image, $food_id);
+                }
             } else {
                 $status = $this->foodModel->create($name, $category, $price, $description, $image);
             }

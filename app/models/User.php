@@ -11,7 +11,7 @@ class User
 
     public function getAllUsers(): mysqli_result|bool
     {
-        $sqlQuery = "SELECT * FROM user";
+        $sqlQuery = "SELECT * FROM users";
         $result = $this->db->conn->query($sqlQuery);
 
 
@@ -24,7 +24,7 @@ class User
 
     public function findUserByEmail(string $email): array|bool
     {
-        $sqlQuery = "SELECT * FROM user WHERE email='$email'";
+        $sqlQuery = "SELECT * FROM users WHERE email='$email'";
         $result = $this->db->conn->query($sqlQuery);
 
         $user = $result->fetch_assoc();
@@ -39,14 +39,14 @@ class User
     public function create(string $username, string $email, string $password, string $role): void
     {
         $hashPassword = password_hash($password, PASSWORD_BCRYPT);
-        $sqlQuery = "INSERT INTO user (username, email, password, role) VALUE ('$username', '$email', '$hashPassword', '$role')";
+        $sqlQuery = "INSERT INTO users (username, email, password, role) VALUE ('$username', '$email', '$hashPassword', '$role')";
 
         $isQuerySuccess = $this->db->conn->query($sqlQuery);
     }
 
     public function delete(int $userId): bool
     {
-        $sqlQuery = "DELETE FROM user WHERE id={$userId}";
+        $sqlQuery = "DELETE FROM users WHERE id={$userId}";
 
         $isQuerySuccess = $this->db->conn->query($sqlQuery);
 

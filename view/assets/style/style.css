@@ -31,7 +31,6 @@ header {
     height: 100vh;
     padding: .8rem;
     padding-top: 4rem;
-
 }
 
 main {
@@ -220,6 +219,14 @@ thead td {
     color: #4a5568;
 }
 
+.table-action {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .45rem;
+}
+
 td.img {
     display: flex;
     justify-content: center;
@@ -233,6 +240,20 @@ td img {
     object-position: center;
     object-fit: cover;
     border-radius: 1rem;
+}
+
+td a {
+    text-decoration: none;
+    background-color: #3182ce;
+    color: white;
+    padding: .4rem .8rem;
+    border-radius: .5rem;
+    transition: linear all .25s;
+}
+
+td a:hover {
+    transform: scale(1.1);
+    text-decoration: underline;
 }
 
 tbody tr {
